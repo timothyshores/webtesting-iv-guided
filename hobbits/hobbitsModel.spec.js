@@ -1,9 +1,13 @@
 const request = require('supertest');
-const hobbits = require('./hobbitsModel');
+const Hobbits = require('./hobbitsModel');
+const db = require('../data/dbConfig');
 
-describe('server', () => {
-    it('sets the environment to testing', () => {
-        expect(process.env.DB_ENV).toBe('testing');
+describe('hobbits model', () => {
+    describe('insert()', () => {
+        it('inserts provided hobbit', async () => {
+            await Hobbits.insert({ name: "Gaffer" });
+            const hobbits = await db('hobbits');
+            expect(hobbits).toHaveLength(100);
+        });
     });
-
 });
