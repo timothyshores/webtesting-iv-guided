@@ -1,13 +1,15 @@
-const request = require('supertest');
 const Hobbits = require('./hobbitsModel');
 const db = require('../data/dbConfig');
 
 describe('hobbits model', () => {
+    beforeAll(async () => {
+        await db('hobbits').truncate();
+    })
     describe('insert()', () => {
         it('inserts provided hobbit', async () => {
             await Hobbits.insert({ name: "Gaffer" });
             const hobbits = await db('hobbits');
-            expect(hobbits).toHaveLength(100);
+            expect(hobbits).toHaveLength(1);
         });
     });
 });
